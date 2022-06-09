@@ -23,12 +23,14 @@ typedef struct t_data
     double MaxRe;
     double MinIm;
     double MaxIm;
+    double zoom;
 
 }               fract;
 
 enum {
 	ESC = 53,
-	D = 2,
+	PLUS = 69,
+    MINUS = 78,
     LEFT = 123,
     RIGHT = 124,
 	ON_KEYUP = 3,

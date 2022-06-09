@@ -55,7 +55,16 @@ int    my_fract(fract *data)
 
 int zoom(fract *data)
 {
-	data->MaxRe = data->MaxRe - 0.1f;
+	data->MaxRe = data->MaxRe - 0.02;
+	data->MinRe = data->MinRe + 0.02;
+	clear(data);
+	my_fract(data);
+	return(0);
+}
+
+int zoomout(fract *data)
+{
+	data->MaxRe = data->MaxRe + 0.01f;
 
 	clear(data);
 	my_fract(data);
@@ -64,8 +73,8 @@ int zoom(fract *data)
 
 int left(fract *data)
 {
-	data->MinRe = data->MinRe + 0.1f;
-	data->MaxRe = data->MaxRe + 0.1f;
+	data->MinRe = data->MinRe + 0.01 * data->zoom;
+	data->MaxRe = data->MaxRe + 0.01 * data->zoom;
 	clear(data);
 	my_fract(data);
 	return(0);
@@ -82,7 +91,8 @@ int right(fract *data)
 
 void	up(fract *data)
 {
-	data->MaxIm = data->MaxIm - 0.15;
+	data->MaxRe = data->MaxRe + 0.1;
+	data->MinRe = data->MinRe - 0.1;
 	clear(data);
 	my_fract(data);
 }
@@ -99,9 +109,13 @@ int	keypress(int key, fract *data)
 {
 	if (key == ESC)
 		exit(0);
-	if (key == D)
+	if (key == PLUS)
 	{
 		zoom(data);
+	}
+	if (key == MINUS)
+	{
+		zoomout(data);
 	}
 	if (key == RIGHT)
 	{
