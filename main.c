@@ -17,5 +17,7 @@ int     main()
     data.addr = mlx_get_data_addr(data.img, &data.bit_x_pixel, &data.line_length, &data.endian);
     mlx_hook(data.win_ptr, 2, 1L<<0, keypress, &data);
     my_fract(&data);
-//////magari creare una funzione tipo print_pxl 
+//////magari creare una funzione tipo print_pxl √
+/////cambiare algo frattale, perché sono un coglione
+
 }
