@@ -7,10 +7,12 @@ int     main()
     fract   data;
     data.ImageHeight = 900;
     data.ImageWidth = 900;
-    data.MaxRe = 1.0;
-    data.MinIm = -1.2;
-    data.MinRe = -2.0;
+    data.MaxRe = 0.5;
+    data.MinIm = -1.0;
+    data.MinRe = -1.5;
+    data.inc = 2;
     data.zoom = 1.0f;
+    data.zoom = 1, data.moveX = -0.5, data.moveY = 0;
     data.mlx_ptr = mlx_init();
     data.win_ptr = mlx_new_window(data.mlx_ptr, 900, 900, "SUCA FRA");
     data.img = mlx_new_image(data.mlx_ptr, 900, 900);

@@ -6,7 +6,7 @@
 /*   By: mtoia <mtoia@student.42roma.it>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 12:33:47 by mtoia             #+#    #+#             */
-/*   Updated: 2022/06/10 09:57:27 by mtoia            ###   ########.fr       */
+/*   Updated: 2022/06/17 21:26:07 by mtoia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 int zoom(fract *data)
 {
-	data->MaxRe = data->MaxRe - 0.02;
-	data->MinRe = data->MinRe + 0.02;
+	data->zoom = data->zoom * 1.2;
+	//data->MinRe = data->MinRe + 0.02;
 	clear(data);
 	my_fract(data);
 	return(0);
@@ -24,7 +24,7 @@ int zoom(fract *data)
 
 int zoomout(fract *data)
 {
-	data->MaxRe = data->MaxRe + 0.01f;
+	data->zoom = data->zoom / 1.5;
 
 	clear(data);
 	my_fract(data);
@@ -33,8 +33,8 @@ int zoomout(fract *data)
 
 int left(fract *data)
 {
-	data->MinRe = data->MinRe + 0.01 * data->zoom;
-	data->MaxRe = data->MaxRe + 0.01 * data->zoom;
+	data->moveX = data->moveX + 0.001; //* data->zoom;
+	//data->MaxRe = data->MaxRe + 0.01 * data->zoom;
 	clear(data);
 	my_fract(data);
 	return(0);
@@ -42,8 +42,8 @@ int left(fract *data)
 
 int right(fract *data)
 {
-	data->MinRe = data->MinRe - 0.01f;
-	data->MaxRe = data->MaxRe - 0.01f;
+	data->moveX = data->moveX - 0.001;
+	//data->MaxRe = data->MaxRe - 0.01f;
 	clear(data);
 	my_fract(data);
 	return(0);
@@ -51,8 +51,28 @@ int right(fract *data)
 
 void	up(fract *data)
 {
-	data->MaxRe = data->MaxRe + 0.1;
-	data->MinRe = data->MinRe - 0.1;
+	data->moveY = data->moveY + 0.01;
+	clear(data);
+	my_fract(data);
+}
+
+void	down(fract *data)
+{
+	data->moveY = data->moveY - 0.001;
+	clear(data);
+	my_fract(data);
+}
+
+void	inv_up(fract *data)
+{
+	data->inc = data->inc + 0.1;
+	clear(data);
+	my_fract(data);
+}
+
+void	inv_down(fract *data)
+{
+	data->inc = data->inc - 0.1;
 	clear(data);
 	my_fract(data);
 }
@@ -79,5 +99,15 @@ int	keypress(int key, fract *data)
 	}
 	if (key == LEFT)
 		left(data);
+	if (key == DOWN)
+		down(data);
+	if (key == KB_PAGE_UP)
+	{
+		inv_up(data);
+	}
+	if (key == KB_PAGE_DOWN)
+	{
+		inv_down(data);
+	}
 	return (0);		
 }

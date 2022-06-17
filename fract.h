@@ -24,15 +24,21 @@ typedef struct t_data
     double MinIm;
     double MaxIm;
     double zoom;
+    double moveX;
+    double moveY;
+    double inc;
 
 }               fract;
 
 enum {
+    KB_PAGE_UP = 116,
+    KB_PAGE_DOWN = 121,
 	ESC = 53,
 	PLUS = 69,
     MINUS = 78,
     LEFT = 123,
     RIGHT = 124,
+    DOWN = 125,
 	ON_KEYUP = 3,
 	ON_MOUSEDOWN = 4,
 	ON_MOUSEUP = 5,
