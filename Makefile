@@ -6,14 +6,14 @@
 #    By: mtoia <mtoia@student.42roma.it>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/10 13:32:42 by gifulvi           #+#    #+#              #
-#    Updated: 2022/06/13 19:36:07 by mtoia            ###   ########.fr        #
+#    Updated: 2022/06/18 15:55:50 by mtoia            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
 
 
-SRC=  algo.c draw.c ft_atoi.c main.c key.c
+SRC=  algo.c draw.c ft_atoi.c main.c key.c Julia.c
 HDRS = mlx/
 
 OBJ = $(SRC:.c=.o)

@@ -1,42 +1,7 @@
 
 #include "fract.h"
-
-
 #include <math.h>
-// float max(float a, float b, float c) {
-//    return ((a > b)? (a > c ? a : c) : (b > c ? b : c));
-// }
-// float min(float a, float b, float c) {
-//    return ((a < b)? (a < c ? a : c) : (b < c ? b : c));
-// }
-// int rgb_to_hsv(float r, float g, float b) {
-//    // R, G, B values are divided by 255
-//    // to change the range from 0..255 to 0..1:
-//    float h, s, v;
-//    r /= 255.0;
-//    g /= 255.0;
-//    b /= 255.0;
-//    float cmax = max(r, g, b); // maximum of r, g, b
-//    float cmin = min(r, g, b); // minimum of r, g, b
-//    float diff = cmax-cmin; // diff of cmax and cmin.
-//    if (cmax == cmin)
-//       h = 0;
-//    else if (cmax == r)
-//       h = fmod((60 * ((g - b) / diff) + 360), 360.0);
-//    else if (cmax == g)
-//       h = fmod((60 * ((b - r) / diff) + 120), 360.0);
-//    else if (cmax == b)
-//       h = fmod((60 * ((r - g) / diff) + 240), 360.0);
-//    // if cmax equal zero
-//       if (cmax == 0)
-//          s = 0;
-//       else
-//          s = (diff / cmax) * 100;
-//    // compute v
-//    v = cmax * 100;
-//    printf("h s v=(%f, %f, %f)\n", h, s, v );
-//    return 0;
-//}
+
 
 int    my_fract(fract *data)
 {
@@ -52,9 +17,9 @@ int    my_fract(fract *data)
 	double newRe, newIm, oldRe, oldIm;   //real and imaginary parts of new and old z
 	// data->zoom = 1, data->moveX = -0.5, data->moveY = 0; //you can change these to zoom and change position
 	//ColorRGB color; //the RGB color value for the pixel
-	int maxIterations = 30;//after how much iterations the function should stop
-	int h = 900;
-	int w = 900;
+	int maxIterations = 20;//after how much iterations the function should stop
+	int h = 1000;
+	int w = 1000;
 	int y;
 	y = 0;
 	int x;
@@ -90,30 +55,16 @@ int    my_fract(fract *data)
 			// 			//
 			// 	}
 			if ((newRe * newRe + newIm * newIm) > 2.5)
-				{
 					my_mlx_pixel_put(data, x, y, 0x040b59);
-						//
-				}
 			if ((newRe * newRe + newIm * newIm) > 3.5)
-				{
 					my_mlx_pixel_put(data, x, y, 0x1722a3);
-						//
-				}
 			if((newRe * newRe + newIm * newIm) > 4.5) 
-				{
 					my_mlx_pixel_put(data, x, y, 0x4854db);
-					//printf("%d, %d\n", color, y);
-					// if ((newRe * newRe + newIm * newIm) > 2)
-					// 	my_mlx_pixel_put(data, x, y, 0x1f0047);
-					// if ((newRe * newRe + newIm * newIm) > 1)
-					// 	my_mlx_pixel_put(data, x, y, 0x3a00AA);
-					//break;
-				}
-				if((newRe * newRe + newIm * newIm) > 5) 
-				{
-					my_mlx_pixel_put(data, x, y, 0x9ba2e8);
-					break;
-				}
+			if((newRe * newRe + newIm * newIm) > 5) 
+			{
+				my_mlx_pixel_put(data, x, y, 0x9ba2e8);
+				break;
+			}
 			}
 			x++;
 		}

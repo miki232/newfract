@@ -6,7 +6,7 @@
 /*   By: mtoia <mtoia@student.42roma.it>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 10:44:22 by mtoia             #+#    #+#             */
-/*   Updated: 2022/06/10 10:04:46 by mtoia            ###   ########.fr       */
+/*   Updated: 2022/06/18 17:12:43 by mtoia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	my_mlx_pixel_put(fract *data, int x, int y, int color)
 int	clear(fract *data)
 {
 	mlx_destroy_image(data->mlx_ptr, data->img);
-	data->img = mlx_new_image(data->mlx_ptr, 900, 900);
+	data->img = mlx_new_image(data->mlx_ptr, 1000, 1000);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 0, 0);
 	return(0);
 }

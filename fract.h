@@ -30,6 +30,18 @@ typedef struct t_data
 
 }               fract;
 
+typedef struct t_mouse
+{
+    double	x;
+	double	y;
+	double	prev_x;
+	double	prev_y;
+	int 	left_down;
+	int 	mid_down;
+}             s_mouse;
+
+
+
 enum {
     KB_PAGE_UP = 116,
     KB_PAGE_DOWN = 121,
@@ -51,11 +63,12 @@ void  put2screen(fract *data);
 void	my_mlx_pixel_put(fract *data, int x, int y, int color);
 int	keypress(int key, fract *data);
 int    my_fract(fract *data);
+int    julia(fract *data);
 void    draw(fract data);
 void	isnside_check(fract data);
 int	ft_atoi(const char *str);
 int	ftclose(int keycode, fract *vars);
 int	clear(fract *data);
-
-
+int	mouse_move(int x, int y, s_mouse *mouse);
+// int	mouseclick(int x, int y, s_mouse *mouse);
 # endif

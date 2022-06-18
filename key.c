@@ -6,12 +6,32 @@
 /*   By: mtoia <mtoia@student.42roma.it>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 12:33:47 by mtoia             #+#    #+#             */
-/*   Updated: 2022/06/17 21:26:07 by mtoia            ###   ########.fr       */
+/*   Updated: 2022/06/18 15:41:31 by mtoia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fract.h"
 
+// int	mouseclick(int x, int y, s_mouse *mouse)
+// {
+
+// 	//printf("%d\n %d", x, y);
+// 	printf("click");
+// 	mouse->left_down = 1;
+// 	return(0);
+// }
+
+
+int	mouse_move(int x, int y, s_mouse *mouse)
+{
+	mouse->prev_x = mouse->x;
+	mouse->prev_y = mouse->y;
+	mouse->x = x - 900;
+	mouse->y = y - 900;
+	if (mouse->left_down)
+		printf("click");
+	return (0);
+}
 
 int zoom(fract *data)
 {
@@ -109,5 +129,7 @@ int	keypress(int key, fract *data)
 	{
 		inv_down(data);
 	}
+	// if (key == 1)
+	// 	printf("click");
 	return (0);		
 }
