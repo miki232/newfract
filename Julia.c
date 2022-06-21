@@ -1,34 +1,24 @@
+
 #include "fract.h"
 
 int    julia(fract *data)
 {
-	// data->y = 0;
-	// data->MaxIm = data->MinIm+(data->MaxRe-data->MinRe)*data->ImageHeight/data->ImageWidth;
-	// double Re_factor = (data->MaxRe - data->MinRe)/(data->ImageWidth-1);
-	// double Im_factor = (data->MaxIm-data->MinIm)/(data->ImageHeight-1);
-	// unsigned MaxIterations = 30;
-	// data->x = 0;
-	// unsigned int n = 0;
-	//int color;
-	//each iteration, it calculates: new = old*old + c, where c is a constant and old starts at current pixel
-	double cRe, cIm;           //real and imaginary part of the constant c, determinate shape of the Julia Set
-	double newRe, newIm, oldRe, oldIm;   //real and imaginary parts of new and old
-	double zoom = 1, moveX = 0, moveY = 0; //you can change these to zoom and change position
+	double newRe, newIm, oldRe, oldIm;  //real and imaginary parts of new and old
+	 //you can change these to zoom and change position
 	//ColorRGB color; //the RGB color value for the pixel
-	int maxIterations = 300; //after how much iterations the function should stop
-	int h = 900;
-	int w = 900;
+	int maxIterations = 30; //after how much iterations the function should stop
+	int h = 800;
+	int w = 800;
 	//pick some values for the constant c, this determines the shape of the Julia Set
-	cRe = -0.7;
-	cIm = 0.27015;
-
+	//cRe = -0.7;
+	// cIm = 0.27015;
 	//loop through every pixel
-	for(int y = 0; y < h; y++)
-	for(int x = 0; x < w; x++)
+	for (int y = 0; y < h; y++)
+	for (int x = 0; x < w; x++)
 	{
 		//calculate the initial real and imaginary part of z, based on the pixel location and zoom and position values
-		newRe = 1.5 * (x - w / 2) / (0.5 * zoom * w) + moveX;
-		newIm = (y - h / 2) / (0.5 * zoom * h) + moveY;
+		newRe = 1.5 * (x - w / 2) / (0.5 * data->zoom * w) + data->moveX;
+		newIm = (y - h / 2) / (0.5 * data->zoom * h) + data->moveY;
 		//i will represent the number of iterations
 		int i;
 		//start the iteration process
@@ -38,14 +28,28 @@ int    julia(fract *data)
 		oldRe = newRe;
 		oldIm = newIm;
 		//the actual iteration, the real and imaginary part are calculated
-		newRe = oldRe * oldRe - oldIm * oldIm + cRe;
-		newIm = 2 * oldRe * oldIm + cIm;
+		newRe = oldRe * oldRe - oldIm * oldIm + data->cRe;
+		newIm = 2 * oldRe * oldIm + data->cIm;
 		//if the point is outside the circle with radius 2: stop
-		if((newRe * newRe + newIm * newIm) > 4) 
-		{
-			my_mlx_pixel_put(data, x, y, 0xFFFFFF);
-			break;
-		}
+		if ((newRe * newRe + newIm * newIm) > 1)
+					my_mlx_pixel_put(data, x, y, 0x000002);
+			if ((newRe * newRe + newIm * newIm) > 2)
+				my_mlx_pixel_put(data, x, y, 0xFF6100);
+			if ((newRe * newRe + newIm * newIm) > 2.5)
+				my_mlx_pixel_put(data, x, y, 0xFFB600);
+			if((newRe * newRe + newIm * newIm) > 3) 
+				my_mlx_pixel_put(data, x, y, 0xFFF300);
+			if((newRe * newRe + newIm * newIm) > 3.5) 
+				my_mlx_pixel_put(data, x, y, 0x00FFE4);
+			if((newRe * newRe + newIm * newIm) > 4) 
+				my_mlx_pixel_put(data, x, y, 0x00CDFF);
+			if((newRe * newRe + newIm * newIm) > 4.5) 
+				my_mlx_pixel_put(data, x, y, 0x1C75FF);
+			if((newRe * newRe + newIm * newIm) > 5)
+			{
+					my_mlx_pixel_put(data, x, y, 0x1C3BFF);
+					break;
+			}
 		}
 		//use color model conversion to get rainbow palette, make brightness black if maxIterations reached
 		//color = HSVtoRGB(ColorHSV(i % 256, 255, 255 * (i < maxIterations)));
