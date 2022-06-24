@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fract.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtoia <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: mtoia <mtoia@student.42roma.it>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 19:47:09 by mtoia             #+#    #+#             */
-/*   Updated: 2022/06/21 19:47:12 by mtoia            ###   ########.fr       */
+/*   Updated: 2022/06/25 01:06:25 by mtoia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@
 #include "ft_printf/ft_printf.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 
 typedef struct t_data
 {
@@ -29,8 +36,8 @@ typedef struct t_data
 	unsigned int	x;
 	unsigned int	y;
 	int				isinside;
-	unsigned int	ImageHeight;
-	unsigned int	ImageWidth;
+	int	ImageHeight;
+	int	ImageWidth;
 	int				which_fract;
 	double			MinRe;
 	double			MaxRe;
@@ -43,9 +50,11 @@ typedef struct t_data
 	double			inc;
 	double			cRe;
 	double			cIm;
+	int				fd;
+	float				maxIterations;
 }	fract;
 
-typedef struct t_mouse
+typedef struct t_mousse
 {
 	double	x;
 	double	y;
@@ -53,7 +62,7 @@ typedef struct t_mouse
 	double	prev_y;
 	int		left_down;
 	int		mid_down;
-}	s_mouse;
+}	s_mousse;
 
 enum
 {
@@ -73,6 +82,26 @@ enum
 	ON_DESTROY = 17
 };
 
+enum palette
+{
+	yellow = 0xF7FF00,
+	lime = 0xDCFF29,
+	orange = 0xFF9300,
+	orange1 = 0xFFB858,
+	red = 0xFD3512,
+	red1 = 0xFF9961,
+	green = 0x9CC938,
+	green1 = 0x4AE62B,
+	cyano = 0x12FDAB,
+	cyano1 = 0x00ffff,
+	darkblue = 0x03006A,
+	blue = 0x1240FD,
+	light_blue = 0x5193FF,
+	
+};
+
+int mouse(int button,int x,int y, fract *param);
+int color(int inter, fract *data);
 void	put2screen(fract *data);
 void	my_mlx_pixel_put(fract *data, int x, int y, int color);
 int		keypress(int key, fract *data);
@@ -80,11 +109,14 @@ int		my_fract(fract *data);
 int		julia(fract *data);
 void	draw(fract data);
 void	isnside_check(fract data);
-int		ft_atoi(const char *str);
-int		ftclose(int keycode, fract *vars);
+double		ft_atoi(const char *str);
+int		ftsclose(void *data);
 int		clear(fract *data);
-int		mouse_move(int x, int y, s_mouse *mouse);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_printf(const char *str, ...);
-// int	mouseclick(int x, int y, s_mouse *mouse);
+char	*ft_itoa(int num);
+int	zoomout(fract *data);
+int	left(fract *data);
+int	right(fract *data);
+int	zoom(fract *data);
 # endif

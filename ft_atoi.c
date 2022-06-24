@@ -6,17 +6,17 @@
 /*   By: mtoia <mtoia@student.42roma.it>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 09:59:47 by mtoia             #+#    #+#             */
-/*   Updated: 2022/06/06 11:39:14 by mtoia            ###   ########.fr       */
+/*   Updated: 2022/06/25 00:15:37 by mtoia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fract.h"
 
-int	ft_atoi(const char *str)
+double	ft_atoi(const char *str)
 {
 	int	i;
 	int	sign;
-	int	result;
+	double	result;
 	int	counter;
 
 	i = 0;

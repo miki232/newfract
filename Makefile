@@ -6,7 +6,7 @@
 #    By: mtoia <mtoia@student.42roma.it>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/10 13:32:42 by gifulvi           #+#    #+#              #
-#    Updated: 2022/06/21 16:57:25 by mtoia            ###   ########.fr        #
+#    Updated: 2022/06/22 11:28:37 by mtoia            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,8 @@ RESET = \033[0m
 SRC=  algo.c draw.c ft_atoi.c main.c key.c Julia.c ft_strncmp.c \
 
 PRINTF = ft_printf
+
+LIBFT = libft/
 
 HDRS = mlx/
 
@@ -32,12 +34,17 @@ CFLAGS	= -g
 LIBS = -lm -lmlx -framework OpenGL -framework AppKit
 
 %.o: %.c
-	$(CC) -Wall -Wextra -Werror -Imlx -I ${HDRS} -c $< -o $@
+	$(CC) -g -Wall -Wextra -Werror -Imlx -I ${HDRS} -c $< -o $@
 
-$(NAME): printf $(OBJ)
+$(NAME):    libft printf $(OBJ)
 		@(test -f $(MLX)  && echo "[$(GREENGREEN)MLX already built$(RESET): Was Created $(NAME)...$(RESET)") || (make -C ./minilibx && mv minilibx/libmlx.dylib .)
-		$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBS) ft_printf/ft_printf.a
+		$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBS) ft_printf/ft_printf.a libft/libft.a
 
+
+libft:
+	@echo "[$(GREENGREEN)Libft$(RESET)]: Creating $(LIBFT)...$(RESET)"
+	make -C $(LIBFT)
+	
 printf:
 	@echo "[$(GREENGREEN)Printf$(RESET)]: Creating $(PRINTF)...$(RESET)"
 	make -C $(PRINTF)
