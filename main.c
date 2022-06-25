@@ -6,11 +6,12 @@
 /*   By: mtoia <mtoia@student.42roma.it>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 18:38:28 by mtoia             #+#    #+#             */
-/*   Updated: 2022/06/25 01:18:06 by mtoia            ###   ########.fr       */
+/*   Updated: 2022/06/25 15:45:20 by mtoia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fract.h"
+
 void	error(void)
 {
 	ft_printf("Please, insert whic fractal:\n");
@@ -20,71 +21,69 @@ void	error(void)
 	exit(0);
 }
 
-int	ftsclose(void *data)
+void	whichfract(t_fract *d)
 {
-	(void)data;
-	exit(0);
-}
-
-void	whichfract(fract *data)
-{
-	if (data->which_fract == 1)
-		my_fract(data);
+	if (d->which_fract == 1)
+		my_fract(d);
 	else
-		julia(data);
+		julia(d);
 }
 
-void	init(fract *data)
+void	init(t_fract *d)
 {
-	data->ImageHeight = 800;
-	data->ImageWidth = 800;
-	data->moveX = 0;
-	data->moveY = 0;
-	data->maxIterations = 20;
-	data->which_fract = 0;
-	data->inc = 2;
-	data->cIm = 0.27015;
-	data->cRe = -0.7;
+	d->ih = 850;
+	d->iw = 900;
+	d->movex = 0;
+	d->mvy = 0;
+	d->maxiterations = 20;
+	d->which_fract = 0;
+	d->inc = 2;
+	d->incx = 0;
+	d->incy = 0;
+	d->cim = 0.27015;
+	d->cre = -0.7;
+	d->zo = 1.0f;
+	d->zo = 1;
+	d->mmx = -0.5;
+	d->mvy = 0;
+	d->mlx_ptr = mlx_init();
+	d->win_ptr = mlx_new_window(d->mlx_ptr, d->iw, d->ih, "Fract-ol");
+	d->img = mlx_new_image(d->mlx_ptr, d->iw, d->ih);
+	d->addr = mlx_get_data_addr(d->img, &d->btxp, &d->line_length, &d->endian);
 }
+
+void	input(t_fract *d, t_args *arg)
+{
+	if (arg->argc == 1)
+		error();
+	if (!ft_strncmp("Mandelbrot", arg->argv[1], 10))
+	{
+		d->which_fract = 1;
+		if (arg->argc == 3)
+			d->inc -= ((ft_atoi(arg->argv[2]) / 10));
+	}
+	else if (!ft_strncmp("Julia", arg->argv[1], 5))
+	{
+		d->which_fract = 2;
+		if (arg->argc == 3)
+			d->cre -= ((ft_atoi(arg->argv[2]) / 100));
+	}
+	else
+		error();
+}	
 
 int	main(int argc, char **argv)
 {
-	fract	data;
+	t_fract	d;
+	t_args	arg;
 	
-	init(&data);
-	data.inc = argc;
-	if (argc == 1)
-		error();
-	if (!ft_strncmp("Mandelbrot", argv[1], 10))
-	{
-		data.which_fract = 1;
-		if (argc == 3)
-			data.inc -= ((ft_atoi(argv[2]) / 100));
-	}
-	else if (!ft_strncmp("Julia", argv[1], 5))
-	{
-		data.which_fract = 2;
-		if (argc == 3)
-			data.cRe -= ((ft_atoi(argv[2]) / 100));
-	}
-	else
-		error();
-	if (argc == 3)
-		data.inc = ft_atoi(argv[2]);
-	data.MaxRe = 0.5;
-	data.MinIm = -1.0;
-	data.MinRe = -1.5;
-	data.zoom = 1.0f;
-	data.zoom = 1;
-	data.MamoveX = -0.5;
-	data.moveY = 0;
-	data.mlx_ptr = mlx_init();
-	data.win_ptr = mlx_new_window(data.mlx_ptr, data.ImageWidth, data.ImageHeight, "Fract-ol");
-	data.img = mlx_new_image(data.mlx_ptr, data.ImageWidth, data.ImageHeight);
-	data.addr = mlx_get_data_addr(data.img, &data.bit_x_pixel, &data.line_length, &data.endian);
-	mlx_hook(data.win_ptr, 2, 1L << 0, keypress, &data);
-	mlx_hook(data.win_ptr, 17, (1L << 16), ftsclose, &data);
-	mlx_mouse_hook(data.win_ptr, mouse, &data);
-	whichfract(&data);
-	mlx_loop(data.mlx_ptr);
+	arg.argc = argc;
+	arg.argv = argv;
+	init(&d);
+	input(&d, &arg);
+	mlx_hook(d.win_ptr, 2, 1L << 0, keypress, &d);
+	mlx_hook(d.win_ptr, 17, (1L << 16), ftsclose, &d);
+	mlx_mouse_hook(d.win_ptr, mouse, &d);
+	whichfract(&d);
+	mlx_loop(d.mlx_ptr);
 }

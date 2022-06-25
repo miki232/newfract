@@ -6,18 +6,18 @@
 /*   By: mtoia <mtoia@student.42roma.it>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 09:59:47 by mtoia             #+#    #+#             */
-/*   Updated: 2022/06/25 10:29:35 by mtoia            ###   ########.fr       */
+/*   Updated: 2022/03/30 11:14:02 by mtoia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fract.h"
+#include "libft.h"
 
-double	ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
-	int		i;
-	int		sign;
-	double	result;
-	int		counter;
+	int	i;
+	int	sign;
+	int	result;
+	int	counter;
 
 	i = 0;
 	sign = 1;

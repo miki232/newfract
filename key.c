@@ -6,67 +6,15 @@
 /*   By: mtoia <mtoia@student.42roma.it>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 12:33:47 by mtoia             #+#    #+#             */
-/*   Updated: 2022/06/25 01:06:33 by mtoia            ###   ########.fr       */
+/*   Updated: 2022/06/25 14:01:49 by mtoia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fract.h"
 
-int	zoom(fract *data)
+void	down(t_fract *data)
 {
-	data->zoom = data->zoom * 1.2;
-	clear(data);
-	if (data->which_fract == 1)
-	{
-		my_fract(data);
-		data->maxIterations += 0.4;
-	}
-	else if (data->which_fract == 2)
-		julia(data);
-	return (0);
-}
-
-int	zoomout(fract *data)
-{
-	data->zoom = data->zoom / 1.2;
-	clear(data);
-	if (data->which_fract == 1)
-	{
-		my_fract(data);
-		data->maxIterations -= 0.4;
-	}
-	else if (data->which_fract == 2)
-		julia(data);
-	return (0);
-}
-
-int	left(fract *data)
-{
-	data->MamoveX = data->MamoveX + 0.1 / data->zoom;
-	data->moveX = data->moveX + 0.01 / data->zoom;
-	clear(data);
-	if (data->which_fract == 1)
-		my_fract(data);
-	else if (data->which_fract == 2)
-		julia(data);
-	return (0);
-}
-
-int	right(fract *data)
-{
-	data->MamoveX = data->MamoveX - 0.1 / data->zoom;
-	data->moveX = data->moveX - 0.01 / data->zoom;
-	clear(data);
-	if (data->which_fract == 1)
-		my_fract(data);
-	else if (data->which_fract == 2)
-		julia(data);
-	return (0);
-}
-
-void	up(fract *data)
-{
-	data->moveY = data->moveY + 0.1 / data->zoom;
+	data->mvy = data->mvy - 0.1 / data->zo;
 	clear(data);
 	if (data->which_fract == 1)
 		my_fract(data);
@@ -74,20 +22,10 @@ void	up(fract *data)
 		julia(data);
 }
 
-void	down(fract *data)
-{
-	data->moveY = data->moveY - 0.1 / data->zoom;
-	clear(data);
-	if (data->which_fract == 1)
-		my_fract(data);
-	else if (data->which_fract == 2)
-		julia(data);
-}
-
-void	inv_up(fract *data)
+void	inv_up(t_fract *data)
 {
 	data->inc = data->inc + 0.1;
-	data->cRe = data->cRe + 0.001;
+	data->cre = data->cre + 0.001;
 	clear(data);
 	if (data->which_fract == 1)
 		my_fract(data);
@@ -95,11 +33,10 @@ void	inv_up(fract *data)
 		julia(data);
 }
 
-void	inv_down(fract *data)
+void	inv_down(t_fract *data)
 {
 	data->inc = data->inc - 0.1;
-	data->cRe = data->cRe - 0.001;
-	printf("%f\n", data->cRe);
+	data->cre = data->cre - 0.001;
 	clear(data);
 	if (data->which_fract == 1)
 		my_fract(data);
@@ -107,7 +44,7 @@ void	inv_down(fract *data)
 		julia(data);
 }
 
-int	keypress(int key, fract *data)
+int	keypress(int key, t_fract *data)
 {
 	if (key == ESC)
 		exit(0);
@@ -115,14 +52,14 @@ int	keypress(int key, fract *data)
 		zoom(data);
 	if (key == MINUS)
 		zoomout(data);
-	if (key == RIGHT)
-		right(data);
-	if (key == 126)
-		up(data);
-	if (key == LEFT)
+	if (key == LEFT || key == D)
 		left(data);
-	if (key == DOWN)
+	if (key == DOWN || key == W)
 		down(data);
+	if (key == RIGHT || key == A)
+		right(data);
+	if (key == UP || key == S)
+		up(data);
 	if (key == KB_PAGE_UP)
 		inv_up(data);
 	if (key == KB_PAGE_DOWN)
@@ -130,13 +67,23 @@ int	keypress(int key, fract *data)
 	return (0);
 }
 
-int mouse(int button, int x, int y, fract *param)
+int	mouse(int button, int x, int y, t_fract *param)
 {
 	(void)x;
-	(void)y;
 	if (button == 4)
+	{
+		//param->incx = (double)(x - param->incx) / 800.20;
+		if (y > 400)
+			param->incy = (double)(y - param->incy) / 800;
+		else if (y < 399)
+			param->incy = (double)(y - param->incy) / 800 * -1;
+		printf("%d, %f\n ", y, param->incy);
 		zoom(param);
+	}
 	else if (button == 5)
+	{
+		
 		zoomout(param);
-	return(0);
+	}
+	return (0);
 }
