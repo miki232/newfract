@@ -6,7 +6,7 @@
 /*   By: mtoia <mtoia@student.42roma.it>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 18:38:28 by mtoia             #+#    #+#             */
-/*   Updated: 2022/06/25 15:45:20 by mtoia            ###   ########.fr       */
+/*   Updated: 2022/06/26 18:11:09 by mtoia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	error(void)
 	ft_printf("Please, insert whic fractal:\n");
 	ft_printf("--Mandelbrot *Param*\n");
 	ft_printf("--Julia *Param*\n");
+	ft_printf("Use WASD or Arrow Keys, for moving the fractal\n");
+	ft_printf("Use '+' for zoom\n '-' for zoom-out\n");
 	ft_printf("Example: ./fractol Mandelbrot 3\n");
 	exit(0);
 }
@@ -25,23 +27,20 @@ void	whichfract(t_fract *d)
 {
 	if (d->which_fract == 1)
 		my_fract(d);
-	else
+	else if (d->which_fract == 2)
 		julia(d);
 }
 
 void	init(t_fract *d)
 {
-	d->ih = 850;
-	d->iw = 900;
+	d->ih = 750;
+	d->iw = 750;
 	d->movex = 0;
 	d->mvy = 0;
 	d->maxiterations = 20;
-	d->which_fract = 0;
-	d->inc = 2;
 	d->incx = 0;
 	d->incy = 0;
 	d->cim = 0.27015;
-	d->cre = -0.7;
 	d->zo = 1.0f;
 	d->zo = 1;
 	d->mmx = -0.5;
@@ -56,15 +55,17 @@ void	input(t_fract *d, t_args *arg)
 {
 	if (arg->argc == 1)
 		error();
-	if (!ft_strncmp("Mandelbrot", arg->argv[1], 10))
+	if (!ft_strncmp("Mandelbrot", arg->argv[1], 11))
 	{
 		d->which_fract = 1;
+		d->inc = 2;
 		if (arg->argc == 3)
 			d->inc -= ((ft_atoi(arg->argv[2]) / 10));
 	}
 	else if (!ft_strncmp("Julia", arg->argv[1], 5))
 	{
 		d->which_fract = 2;
+		d->cre = -0.7;
 		if (arg->argc == 3)
 			d->cre -= ((ft_atoi(arg->argv[2]) / 100));
 	}
@@ -76,11 +77,11 @@ int	main(int argc, char **argv)
 {
 	t_fract	d;
 	t_args	arg;
-	
+
 	arg.argc = argc;
 	arg.argv = argv;
-	init(&d);
 	input(&d, &arg);
+	init(&d);
 	mlx_hook(d.win_ptr, 2, 1L << 0, keypress, &d);
 	mlx_hook(d.win_ptr, 17, (1L << 16), ftsclose, &d);
 	mlx_mouse_hook(d.win_ptr, mouse, &d);

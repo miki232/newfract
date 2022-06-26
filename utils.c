@@ -6,7 +6,7 @@
 /*   By: mtoia <mtoia@student.42roma.it>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 10:21:38 by mtoia             #+#    #+#             */
-/*   Updated: 2022/06/25 13:11:19 by mtoia            ###   ########.fr       */
+/*   Updated: 2022/06/26 16:50:31 by mtoia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	zoom(t_fract *data)
 {
-	data->zo = data->zo * 1.2;
+	data->zo = data->zo * 1.1;
 	clear(data);
 	if (data->which_fract == 1)
 	{
 		my_fract(data);
-		data->maxiterations += 0.4;
+		data->maxiterations += 0.3;
 	}
 	else if (data->which_fract == 2)
 		julia(data);
@@ -28,12 +28,12 @@ int	zoom(t_fract *data)
 
 int	zoomout(t_fract *data)
 {
-	data->zo = data->zo / 1.2;
+	data->zo = data->zo / 1.1;
 	clear(data);
 	if (data->which_fract == 1)
 	{
 		my_fract(data);
-		data->maxiterations -= 0.4;
+		data->maxiterations -= 0.3;
 	}
 	else if (data->which_fract == 2)
 		julia(data);

@@ -6,7 +6,7 @@
 /*   By: mtoia <mtoia@student.42roma.it>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 19:47:09 by mtoia             #+#    #+#             */
-/*   Updated: 2022/06/25 15:45:25 by mtoia            ###   ########.fr       */
+/*   Updated: 2022/06/26 18:03:46 by mtoia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct t_data
 	double			newim;
 	double			ore;
 	double			incx;
+	double			pow;
 	double			incy;
 	double			oim;
 	float			maxiterations;

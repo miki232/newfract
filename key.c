@@ -6,7 +6,7 @@
 /*   By: mtoia <mtoia@student.42roma.it>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 12:33:47 by mtoia             #+#    #+#             */
-/*   Updated: 2022/06/25 14:01:49 by mtoia            ###   ########.fr       */
+/*   Updated: 2022/06/26 17:03:51 by mtoia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,20 +70,10 @@ int	keypress(int key, t_fract *data)
 int	mouse(int button, int x, int y, t_fract *param)
 {
 	(void)x;
+	(void)y;
 	if (button == 4)
-	{
-		//param->incx = (double)(x - param->incx) / 800.20;
-		if (y > 400)
-			param->incy = (double)(y - param->incy) / 800;
-		else if (y < 399)
-			param->incy = (double)(y - param->incy) / 800 * -1;
-		printf("%d, %f\n ", y, param->incy);
 		zoom(param);
-	}
 	else if (button == 5)
-	{
-		
 		zoomout(param);
-	}
 	return (0);
 }
