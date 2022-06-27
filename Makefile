@@ -6,7 +6,7 @@
 #    By: mtoia <mtoia@student.42roma.it>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/10 13:32:42 by gifulvi           #+#    #+#              #
-#    Updated: 2022/06/27 09:50:48 by mtoia            ###   ########.fr        #
+#    Updated: 2022/06/27 12:02:05 by mtoia            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,14 +38,11 @@ LIBS = -lm -lmlx -framework OpenGL -framework AppKit
 %.o: %.c
 	$(CC) -g -Wall -Wextra -Werror -Imlx -I ${HDRS} -c $< -o $@
 
-$(NAME):	libft	printf $(OBJ)
+$(NAME): $(OBJ)
+		@make -C ./ft_printf
+		@make -C ./libft bonus
 		@(test -f $(MLX)  && echo "[$(GREENGREEN)MLX already built$(RESET): Was Created $(NAME)...$(RESET)") || (make -C ./mlx && mv mlx/libmlx.dylib .)
-		@make -C ./libft bonus clean
 		$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBS) ft_printf/ft_printf.a libft/libft.a
-
-printf:
-	@echo "[$(GREENGREEN)Printf$(RESET)]: Creating $(PRINTF)...$(RESET)"
-	@make -C $(PRINTF)
 
 all: $(NAME)
 	make clean
