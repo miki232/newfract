@@ -6,13 +6,14 @@
 /*   By: mtoia <mtoia@student.42roma.it>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 19:47:09 by mtoia             #+#    #+#             */
-/*   Updated: 2022/06/26 18:03:46 by mtoia            ###   ########.fr       */
+/*   Updated: 2022/06/27 09:42:07 by mtoia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACT_H
 # define FRACT_H
 # include "mlx/mlx.h"
+# include "libft/libft.h"
 # include "ft_printf/ft_printf.h"
 # include <stdio.h>
 # include <stdlib.h>
@@ -107,7 +108,7 @@ int		my_fract(t_fract *data);
 int		julia(t_fract *data);
 void	draw(t_fract data);
 void	isnside_check(t_fract data);
-double	ft_atoi(const char *str);
+double	doubleatoi(const char *str);
 int		ftsclose(void *data);
 int		clear(t_fract *data);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);

@@ -6,7 +6,7 @@
 #    By: mtoia <mtoia@student.42roma.it>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/10 13:32:42 by gifulvi           #+#    #+#              #
-#    Updated: 2022/06/26 19:02:35 by mtoia            ###   ########.fr        #
+#    Updated: 2022/06/27 09:50:48 by mtoia            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = fractol
 GREENGREEN = \033[38;5;46m
 RESET = \033[0m
 
-SRC=  Mandelbrot.c draw.c ft_atoi.c main.c key.c Julia.c ft_strncmp.c utils.c\
+SRC=  Mandelbrot.c draw.c doubleatoi.c main.c key.c Julia.c utils.c\
 
 PRINTF = ft_printf
 

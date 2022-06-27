@@ -6,7 +6,7 @@
 /*   By: mtoia <mtoia@student.42roma.it>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 18:38:28 by mtoia             #+#    #+#             */
-/*   Updated: 2022/06/26 18:11:09 by mtoia            ###   ########.fr       */
+/*   Updated: 2022/06/27 09:48:36 by mtoia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 void	error(void)
 {
-	ft_printf("Please, insert whic fractal:\n");
-	ft_printf("--Mandelbrot *Param*\n");
+	ft_printf("\nPlease, insert whic fractal:\n");
+	ft_printf("\n--Mandelbrot *Param*\n");
 	ft_printf("--Julia *Param*\n");
-	ft_printf("Use WASD or Arrow Keys, for moving the fractal\n");
+	ft_printf("\n[Only One Parameters can be accepted]\n");
+	ft_printf("\nUse WASD or Arrow Keys, for moving the fractal\n");
 	ft_printf("Use '+' for zoom\n '-' for zoom-out\n");
-	ft_printf("Example: ./fractol Mandelbrot 3\n");
+	ft_printf("\nExample: ./fractol Mandelbrot 3\n");
 	exit(0);
 }
 
@@ -53,21 +54,21 @@ void	init(t_fract *d)
 
 void	input(t_fract *d, t_args *arg)
 {
-	if (arg->argc == 1)
+	if (arg->argc == 1 || arg->argc == 4)
 		error();
 	if (!ft_strncmp("Mandelbrot", arg->argv[1], 11))
 	{
 		d->which_fract = 1;
 		d->inc = 2;
 		if (arg->argc == 3)
-			d->inc -= ((ft_atoi(arg->argv[2]) / 10));
+			d->inc -= ((doubleatoi(arg->argv[2]) / 10));
 	}
 	else if (!ft_strncmp("Julia", arg->argv[1], 5))
 	{
 		d->which_fract = 2;
 		d->cre = -0.7;
 		if (arg->argc == 3)
-			d->cre -= ((ft_atoi(arg->argv[2]) / 100));
+			d->cre -= ((doubleatoi(arg->argv[2]) / 100));
 	}
 	else
 		error();
