@@ -23,7 +23,7 @@ LIBFT = libft
 
 HDRS = mlx/
 
-MLX = mlx
+MLX = ./libmlx.dylib
 
 OBJ = $(SRC:.c=.o)
 
@@ -41,8 +41,9 @@ LIBS = -lm -lmlx -framework OpenGL -framework AppKit
 $(NAME): $(OBJ)
 		@make -C ./ft_printf
 		@make -C ./libft bonus
-		@(test -f $(MLX)  && echo "[$(GREENGREEN)MLX already built$(RESET): Was Created $(NAME)...$(RESET)") || (make -C ./mlx && mv mlx/libmlx.dylib .)
-		$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBS) ft_printf/ft_printf.a libft/libft.a
+		@make -C ./mlx
+		mv mlx/libmlx.dylib .
+		$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(MLX) ft_printf/ft_printf.a libft/libft.a
 
 all: $(NAME)
 	make clean
