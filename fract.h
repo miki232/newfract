@@ -121,5 +121,6 @@ void	up(t_fract *data);
 void	down(t_fract *data);
 void	inv_up(t_fract *data);
 int		zoom(t_fract *data);
+int fibonacci(t_fract *d);
 
 #endif
